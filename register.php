@@ -1,6 +1,10 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'config/db_connect.php';
+
 $page_title = "Join BDU Transit";
-require_once 'includes/header.php';
 
 if (isset($_SESSION['user_id'])) {
     header("Location: index.php");
@@ -35,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+require_once 'includes/header.php';
 ?>
     <style>
         .auth-wrapper {

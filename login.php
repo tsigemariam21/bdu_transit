@@ -1,7 +1,11 @@
 <?php
-$page_title = "Login - BDU Transit";
-require_once 'includes/header.php';
+// Start session and include DB connection manually first
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'config/db_connect.php';
 
+$page_title = "Login - BDU Transit";
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once 'includes/header.php';
 ?>
     <style>
         .auth-wrapper {

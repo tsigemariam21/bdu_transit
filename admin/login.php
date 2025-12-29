@@ -16,13 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$username]);
             $user = $stmt->fetch();
 
-            // Self-Healing Fix for 'admin123'
-            // If the hash is invalid for this server, but the user typed the correct default password, we fix it automatically.
-            if ($user && $password === 'admin123' && !password_verify($password, $user['password'])) {
-                $newHash = password_hash('admin123', PASSWORD_DEFAULT);
-                $pdo->prepare("UPDATE users SET password = ? WHERE user_id = ?")->execute([$newHash, $user['user_id']]);
-                $user['password'] = $newHash; // Update local variable to allow login below
-            }
+
 
             if ($user && password_verify($password, $user['password'])) {
                 // Password is correct
